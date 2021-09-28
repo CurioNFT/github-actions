@@ -1,0 +1,17 @@
+name: Docker CLI Update
+description: Updates Docker CLI to v2 enabling Amazon ECS integration
+
+runs:
+  using: composite
+  steps:
+    - name: Install new Docker Compose CLI
+      run: |
+        curl -L https://raw.githubusercontent.com/docker/compose-cli/main/scripts/install/install_linux.sh | sh
+        docker version
+        docker version | grep "Cloud integration"
+        mkdir -p ~/.docker/cli-plugins/
+        curl -SL https://github.com/docker/compose/releases/download/v2.0.0-rc.3/docker-compose-linux-amd64 -o ~/.docker/cli-plugins/docker-compose
+        chmod +x ~/.docker/cli-plugins/docker-compose
+        docker compose version
+        docker compose version | grep "v2."
+      shell: bash
