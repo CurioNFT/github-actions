@@ -36,7 +36,7 @@ runs:
 
     - name: Build, tag, and push image to Amazon ECR and bring up container on ECS
       env:
-        ECR_IMAGE_URL: ${{ format('{0}/{1}:{2}', steps.ecr-login.outputs.registry, inputs.ecr-repository, inputs.ecr-tag) }}
+        ECR_IMAGE_URL: ${{ format('{0}/{1}:{2}', steps.login-ecr.outputs.registry, inputs.ecr-repository, inputs.ecr-tag) }}
       run: |
         docker build -t $ECR_IMAGE_URL .
         docker push $ECR_IMAGE_URL
